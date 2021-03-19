@@ -12,14 +12,13 @@ const auth = async (req, res, next) => {
    const token = req.header('x-auth-token');
    if(!token) return res.status(401).send('Access denied. No token provided!');
 
-   //? verify the token 
+   //? Verify the token 
    try {
       const decodedPayload = jwt.verify(token, process.env.JWT_SECRET);
-      
+
       const user = await User.findById(decodedPayload._id);
-      if(!user) {
-         throw new Error();
-      } 
+      //! If the user not found!
+      if(!user) throw new Error();
 
       //Todo: If everything is ok, add the user to the request object
       req.user = user;
