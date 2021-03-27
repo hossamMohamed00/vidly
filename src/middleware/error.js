@@ -5,10 +5,10 @@
 */
 //? require winston to log the error in file
 const winston = require('winston'); 
-module.exports = (err, req, res, next) => {
-   //* Log the error
-   winston.error(err.message, err )
+module.exports = (err, req, res) => {
+	//* Log the error
+	winston.error(err.message, err );
    
-   //* Send proper message to the user
-   res.status(500).send('An error occurred!')
-}
+	//* Send proper message to the user
+	res.status(500).send('An error occurred!');
+};

@@ -1,6 +1,5 @@
 //? Require Packages
 const express = require('express');
-const winston = require('winston')
 
 //? Load the logging/Handling errors module
 const logger = require('./startup/logging')();
@@ -17,4 +16,6 @@ require('./startup/config')();
 
 //* Running the server
 const port = process.env.PORT || 3000;
-app.listen(port, () => logger.info(`Server is up on ${port}...`))
+const server = app.listen(port, () => logger.info(`Server is up on ${port}...`));
+
+module.exports = server; // Used for integration testing

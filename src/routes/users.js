@@ -1,13 +1,13 @@
 /**
  * * Users routes
  */
-const express = require("express");
+const express = require('express');
 
 //? Require controller
-const usersControllers = require("../controllers/users");
+const usersControllers = require('../controllers/users');
 
 //? Load the auth middleware
-const auth = require("../middleware/auth");
+const auth = require('../middleware/auth');
 
 //Todo: Initialize new router
 const router = express.Router();
@@ -16,7 +16,7 @@ const router = express.Router();
 router.post('/', usersControllers.registerUser);
 
 //* Get user data
-router.get("/me", auth, usersControllers.getUser);
+router.get('/me', auth, usersControllers.getUser);
 
 
 module.exports = router;

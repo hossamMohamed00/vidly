@@ -1,34 +1,39 @@
 {
   "name": "vidly-app",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "This project is an example of Mosh course",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js"
+    "lint": "eslint ./src --fix",
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "test": "env-cmd -f ./config/test.env jest --watchAll --verbose"
   },
   "keywords": [
     "node",
     "express",
     "mongoose",
-    "javaScript"
+    "javaScript",
+    "jest"
   ],
   "author": "Hossam Mohamed",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "express": "^4.17.1",
-    "fawn": "^2.1.5",
+    "fawn": "github:e-oj/Fawn#dev",
     "joi": "^17.4.0",
     "joi-objectid": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.20",
-    "mongoose": "^5.11.15",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.12.2",
     "morgan": "^1.10.0",
     "winston": "^3.3.3",
     "winston-mongodb": "^5.0.7"
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0"
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.22.0",
+    "jest": "^26.6.3",
+    "supertest": "^3.4.2"
   }
 }
