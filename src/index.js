@@ -14,6 +14,9 @@ require('./startup/routes')(app);
 //? Load the Essential configuration 
 require('./startup/config')(); 
 
+//? Load the production module 
+require('./startup/prod')(app); 
+
 //* Running the server
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => logger.info(`Server is up on ${port}...`));
