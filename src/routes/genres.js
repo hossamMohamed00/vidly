@@ -7,9 +7,11 @@ const express = require('express');
 //? Require controller
 const genresController = require('../controllers/genres');
 
-//? Load the middlewares
+//? Load the middleware
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
+const validate = require('../middleware/validate');
+const { validateGenre } = require('../utilities/utils');
 
 //Todo: Initialize new router
 const router = express.Router();
@@ -18,10 +20,10 @@ const router = express.Router();
 router.get('/', genresController.getGenres);
 
 //* Add Genre
-router.post('/', auth, genresController.addGenre);
+router.post('/', [auth, validate(validateGenre)], genresController.addGenre);
 
 //* Update Genre
-router.put('/:id', auth, genresController.updateGenre);
+router.put('/:id', [auth, validate(validateGenre)], genresController.updateGenre);
 
 //* Delete Genre
 router.delete('/:id', [auth, admin], genresController.deleteGenre);

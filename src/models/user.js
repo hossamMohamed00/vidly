@@ -85,9 +85,15 @@ userSchema.statics.findByCredentials = async (email, password) => {
 };
 
 /*-----------------------------------------*/
+//* Instances methods
 userSchema.methods.generateAuthToken = async function () {
-	const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, process.env.JWT_SECRET, { expiresIn: '7 days' });
+	const token = jwt.sign(
+		{ _id: this._id, isAdmin: this.isAdmin }, 
+		process.env.JWT_SECRET,
+		{ expiresIn: '7 minutes' });
 	return token;
 };
+
+
 const User = mongoose.model('User', userSchema);
 module.exports = User;

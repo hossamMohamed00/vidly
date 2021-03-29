@@ -14,9 +14,7 @@ exports.getCustomers = asyncMiddleware(async (req, res) => {
 
 //* Add new customer
 exports.addCustomer = asyncMiddleware(async (req, res) => {
-	//? validate inputs
-	const { error } = validateCustomer(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	//? validate inputs done with validate middleware
 
 	//* Define new Customer
 	const customer = new Customer({
@@ -34,8 +32,7 @@ exports.addCustomer = asyncMiddleware(async (req, res) => {
 
 //* Update customer
 exports.updateCustomer = asyncMiddleware(async (req, res) => {
-	//? Validate the id
-	if (!isValidId(req.params.id)) res.status(400).send('Invalid customer id!');
+	//? validate inputs done with validate middleware
 
 	//? validate inputs
 	const { error } = validateCustomer(req.body);

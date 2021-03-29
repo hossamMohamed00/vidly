@@ -5,9 +5,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-
 const auth = async (req, res, next) => {
-   
 	//TODO: Get the token from the request header
 	const token = req.header('x-auth-token');
 	if(!token) return res.status(401).send('Access denied. No token provided!');
@@ -16,12 +14,8 @@ const auth = async (req, res, next) => {
 	try {
 		const decodedPayload = jwt.verify(token, process.env.JWT_SECRET);
 
-		const user = await User.findById(decodedPayload._id);
-		//! If the user not found!
-		if(!user) throw new Error();
- 
-		//Todo: If everything is ok, add the user to the request object
-		req.user = user;
+		//Todo: If everything is ok, add the decodedPayload to the request object
+		req.user = decodedPayload;
 
 		//* Add The control to the next middleware
 		next();

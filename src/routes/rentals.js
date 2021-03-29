@@ -6,8 +6,10 @@ const express = require('express');
 //? Require controller
 const rentalsControllers = require('../controllers/rentals');
 
-//? Load the auth middleware
+//? Load middleware
 const auth = require('../middleware/auth');
+const validate = require('../middleware/validate');
+const { validateRental } = require('../utilities/utils');
 
 //Todo: Initialize new router
 const router = express.Router();
@@ -16,6 +18,6 @@ const router = express.Router();
 router.get('/', rentalsControllers.getRentals);
 
 //* Create a new rental
-router.post('/', auth, rentalsControllers.createRental);
+router.post('/', [auth, validate(validateRental)], rentalsControllers.createRental);
 
 module.exports = router;

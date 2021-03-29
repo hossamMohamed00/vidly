@@ -8,11 +8,11 @@ describe('/api/genres', () => {
 	//? This method will be called before every test.
 	beforeEach(() => server = require('../../index')); //* load the server);
 	afterEach( async () => { 
-		server.close();
+		await server.close();
 		//* Clean the db
-		await Genre.remove({}); // will remove all genre
+		await Genre.deleteMany({}); // will remove all genre
 	});
-   
+
 	describe('GET /', () => {
 		it('should return all genres', async () => {
 			//* Add two genre to DB

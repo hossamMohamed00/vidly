@@ -4,7 +4,7 @@
 
 const Movie = require('../models/movie');
 const Genre = require('../models/genre');
-const { validateMovie, isValidId } = require('../utilities/utils');
+const { isValidId } = require('../utilities/utils');
 const asyncMiddleware = require('../middleware/async');
 
 //* Get all movies
@@ -15,9 +15,7 @@ exports.getMovies = asyncMiddleware(async (req, res) => {
 
 //* Add a movie
 exports.addMovie = asyncMiddleware(async (req, res) => {
-	//? validate inputs
-	const { error } = validateMovie(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	//? validate inputs done with validate middleware
 
 	//* Find the genre
 	const genre = await Genre.findById(req.body.genreId);
@@ -42,9 +40,7 @@ exports.addMovie = asyncMiddleware(async (req, res) => {
 
 //* Update a movie
 exports.updateMovie = asyncMiddleware(async (req, res) => {
-	//? validate inputs
-	const { error } = validateMovie(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	//? validate inputs done with validate middleware
 
 	//? validate the movie id
 	if (!isValidId(req.params.id))

@@ -3,7 +3,7 @@
  */
 
 const Genre = require('../models/genre');
-const { isValidId, validateGenre } = require('../utilities/utils');
+const { isValidId } = require('../utilities/utils');
 const asyncMiddleware = require('../middleware/async');
 
 //* Get All Genres 
@@ -14,9 +14,7 @@ exports.getGenres = asyncMiddleware(async (req, res) => {
 
 //* Add a Genre
 exports.addGenre = asyncMiddleware( async (req, res) => {   
-	//? validate inputs
-	const { error } = validateGenre(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	//? validate inputs done with validate middleware
 
 	//* Define new Genre
 	const genre = new Genre({ name: req.body.name });
@@ -30,9 +28,7 @@ exports.addGenre = asyncMiddleware( async (req, res) => {
 
 //* Update a Genre
 exports.updateGenre = asyncMiddleware( async (req, res) => {
-	//? validate inputs
-	const { error } = validateGenre(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	//? validate inputs done with validate middleware
 
 	//? Validate the id
 	if (!isValidId(req.params.id)) return res.status(400).send('Invalid Genre id!');

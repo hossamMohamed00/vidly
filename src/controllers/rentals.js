@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 const Rental = require('../models/rental'); 
 const Customer = require('../models/customer');
 const Movie = require('../models/movie');
-const { validateRental } = require('../utilities/utils');
 const asyncMiddleware = require('../middleware/async');
 
 //Todo: Initialize fawn 
@@ -22,9 +21,7 @@ exports.getRentals = asyncMiddleware( async (req, res) => {
 
 //* Create a new rental
 exports.createRental = asyncMiddleware( async (req, res) => {
-	//? validate inputs
-	const { error } = validateRental(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
+	//? validate inputs done with validate middleware
 
 	//? Validate customer
 	const customer = await Customer.findById(req.body.customerId);
@@ -44,8 +41,8 @@ exports.createRental = asyncMiddleware( async (req, res) => {
 	res.send(rental);
 });
 
+/*--------------------*/
 //* Helper functions
-
 const createNewRental = (customer, movie) => {
 	//* If everything is ok, create the new rental.
 	let rental = new Rental({
@@ -72,4 +69,4 @@ const createNewRental = (customer, movie) => {
 
 	//* Return the rental
 	return rental;
-}
+};

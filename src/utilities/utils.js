@@ -70,13 +70,24 @@ exports.validateUser = user => {
 	return result;
 };
 
-exports.validateAuth = userData => {
+exports.validateAuth = req => {
 	const scheme = Joi.object({
 		email: Joi.string().min(3).max(255).required().email(),
 		password: Joi.string().min(3).max(255).required(),
 	});
 
-	const result = scheme.validate(userData);
+	const result = scheme.validate(req);
+	return result;
+};
+
+exports.validateReturn = req => {
+	const scheme = Joi.object({
+		customerId: Joi.objectId().required(),
+		movieId: Joi.objectId().required()
+	});
+
+	const result = scheme.validate(req);
+
 	return result;
 };
 /*--------------------------------*/

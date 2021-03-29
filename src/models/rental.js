@@ -2,6 +2,7 @@
  * * Rentals Model.
  */
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 // //* Load model to get its Schema 
 // const Genre = require('./genres');
@@ -60,4 +61,23 @@ const rentalSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('Rentals', rentalSchema);
+//TODO: Add static method to the Rental class
+rentalSchema.statics.lookup =  function (customerId, movieId) {
+	return this.findOne({
+		'customer._id': customerId,
+		'movie._id': movieId
+	}); 
+};
+
+//TODO: Add instance method to the rental object
+rentalSchema.methods.return = function () {
+	//* Set the dateReturned
+	this.dateReturned = new Date();
+
+	//* Calculate the rental fee
+	const rentalDays = moment().diff(this.dateOut, 'days');
+	this.rentalFee = rentalDays * this.movie.dailyRentalRate;
+};
+
+const Rental = mongoose.model('Rentals', rentalSchema);
+module.exports = Rental;
