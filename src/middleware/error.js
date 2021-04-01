@@ -8,7 +8,7 @@ const winston = require('winston');
 module.exports = (err, req, res) => {
 	//* Log the error
 	winston.error(err.message, err );
-   
+	console.log(err);
 	//* Send proper message to the user
 	res.status(500).send('An error occurred!');
 };
